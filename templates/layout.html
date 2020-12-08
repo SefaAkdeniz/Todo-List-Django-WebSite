@@ -16,6 +16,26 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+          <ul class="navbar-nav">
+          <li
+              {% if 'login' in request.path %}
+                  class="nav-item active"
+              {% else %}
+                  class="nav-item"
+              {% endif %}
+            >
+            <a href="{% url 'login' %}" class="nav-link">Login</a>
+          </li>
+          <li
+              {% if 'register' in request.path %}
+                  class="nav-item active"
+              {% else %}
+                  class="nav-item"
+              {% endif %}
+            >
+            <a href="{% url 'register' %}" class="nav-link">Register</a>
+          </li>
+          </ul>
         </div>
     </nav>
     {% if messages %}
