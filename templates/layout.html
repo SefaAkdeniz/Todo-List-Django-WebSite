@@ -17,7 +17,14 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <ul class="navbar-nav">
-          <li
+
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a href="" class="nav-link">({{ user.username }}) Logout</a>
+            </li>
+
+            {% else %}
+            <li
               {% if 'login' in request.path %}
                   class="nav-item active"
               {% else %}
@@ -35,6 +42,9 @@
             >
             <a href="{% url 'register' %}" class="nav-link">Register</a>
           </li>
+            
+            {% endif %}
+          
           </ul>
         </div>
     </nav>
