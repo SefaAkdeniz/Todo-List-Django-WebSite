@@ -12,7 +12,7 @@ def login(request):
         if user is not None:
             auth.login(request,user)
             messages.add_message(request,messages.SUCCESS,'Signed in.')
-            return redirect('register')
+            return redirect('index')
         else:
             messages.add_message(request,messages.ERROR,'Account not found.')
             return redirect('login')
@@ -43,5 +43,8 @@ def register(request):
         return render(request,'user/register.html')
     
 
-def logout():
-    pass
+def logout(request):
+    if request.method == 'POST':
+        auth.logout(request)
+        messages.add_message(request,messages.SUCCESS,'You have been signed out.')
+        return redirect('login')
