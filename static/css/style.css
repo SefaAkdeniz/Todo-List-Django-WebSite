@@ -200,6 +200,12 @@ body {
   font-weight: 400;
   font-family: Poppins; }
 
+#mainPage{
+  padding-top: 50px;
+  padding-right: 30px;
+  padding-bottom: 50px;
+  padding-left: 80px;
+}
 .container {
   width: 900px;
   background: #fff;

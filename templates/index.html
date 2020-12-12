@@ -1,5 +1,30 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    index
+<div class="container" id="mainPage">
+  <h3>My To Do Lists</h3>
+  <br />
+  <ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="New list name">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+            Create
+          </button>
+        </div>
+      </div>
+    </li>
+    {% if lists %} {% for list in lists %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      {{list.name}}
+      <span class="badge badge-pill">X</span>
+    </li>
+    {% endfor %} {% else %}
+
+    <p>No Lists</p>
+
+    {% endif %}
+  </ul>
+</div>
 {% endblock %}
