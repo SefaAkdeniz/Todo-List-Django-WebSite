@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container" id="mainPage">
+    <h3>{{title}}</h3>
+    <br>
+    {% if items %}
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Deadline</th>
+                <th scope="col">Created Date</th>
+                <th scope="col">Explanation</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr {% if item.status is True %} class="table-success" {% else %} class="table-danger" {% endif %}>
+                <td>{{item.name}}</td>
+                <td>{{item.deadline}}</td>
+                <td>{{item.createdDate}}</td>
+                <td>{{item.explanation}}</td>
+                <td>
+                    {% if item.status is True %}
+                    {% else %}
+                    <button type="button" class="btn btn-light btn-sm">Completed</button>
+                    {% endif %}
+                </td>
+                <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <p>No List Item</p>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

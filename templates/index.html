@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container" id="mainPage">
-  <h3>My To Do Lists</h3>
+  <h3>My Lists</h3>
   <br />
   <ul class="list-group">
     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -17,8 +17,10 @@
     </li>
     {% if lists %} {% for list in lists %}
     <li class="list-group-item d-flex justify-content-between align-items-center">
-      {{list.name}}
-      <span class="badge badge-pill">X</span>
+      <a href="{% url 'detail' list.id %}">{{list.name}}</a>
+      <button type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </li>
     {% endfor %} {% else %}
 
