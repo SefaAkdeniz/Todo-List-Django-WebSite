@@ -4,6 +4,11 @@
 <div class="container" id="mainPage">
     <h3>{{title}}</h3>
     <br>
+    <label class="switch">
+        <input type="checkbox" id="isCompleted" onclick="filterTableForStatus()">
+        <span class="slider round"></span>
+      </label>
+    <input type="text" id="searchKey" onkeyup="filterTableForName()" placeholder="Search for names..">
     <form action="{% url 'detail' list_id %}" method="POST">
         {% csrf_token %}
         <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" name="deadline" required>
@@ -20,17 +25,17 @@
     <table class="table" id="itemList">
         <thead class="thead-light">
             <tr>
-                <th scope="col" onclick="sortTable(0)">Name<br><a class="badge badge-pill badge-light btn">Order</a></th>
-                <th scope="col" onclick="sortTable(1)">Deadline<br><a class="badge badge-pill badge-light btn">Order</a></th>
-                <th scope="col" onclick="sortTable(2)">Created Date<br><a class="badge badge-pill badge-light btn">Order</a></th>
-                <th scope="col" onclick="sortTable(3)">Explanation<br><a class="badge badge-pill badge-light btn">Order</a></th>
-                <th scope="col" onclick="sortTable(4)">Status<br><a class="badge badge-pill badge-light btn">Order</a></th>
+                <th scope="col" >Name<br><a onclick="sortTable(0)" class="badge badge-pill badge-light btn">Order</a></th>
+                <th scope="col" >Deadline<br><a onclick="sortTable(1)" class="badge badge-pill badge-light btn">Order</a></th>
+                <th scope="col" >Created Date<br><a onclick="sortTable(2)" class="badge badge-pill badge-light btn">Order</a></th>
+                <th scope="col" >Explanation<br><a onclick="sortTable(3)" class="badge badge-pill badge-light btn">Order</a></th>
+                <th scope="col" >Status<br><a onclick="sortTable(4)" class="badge badge-pill badge-light btn">Order</a></th>
                 <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             {% for item in items %}
-            <tr {% if item.status is True %} class="table-success" {% else %} class="table-danger" {% endif %}>
+            <tr {% if item.status is True %} class="table-success" {% else %} class="table-warning" {% endif %}>
                 <td>{{item.name}}</td>
                 <td>{{item.deadline}}</td>
                 <td>{{item.createdDate}}</td>
@@ -41,7 +46,7 @@
                     <form action="{% url 'changeStatus' item.id%}" method="POST">
                         {% csrf_token %}
                         <input type="hidden" value='{{list_id}}' name="listId"/>                
-                        <button type="submit" class="btn btn-danger btn-sm">Completed</button>
+                        <button type="submit" class="btn btn-success btn-sm">Completed</button>
                       </form>
                     {% endif %}
                 </td>
