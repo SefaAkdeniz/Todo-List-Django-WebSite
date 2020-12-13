@@ -19,15 +19,25 @@ def index(request):
     
 @login_required(login_url="login") 
 def detail(request,list_id):
-    items = ListItem.objects.filter(tList=list_id)
-    title = List.objects.filter(pk=list_id).first().name
-    return render(request,'detail.html',{"items": items,"title":title,"list_id":list_id})
+    if request.method == 'POST':
+        name = request.POST['name']
+        explanation = request.POST['explanation']
+        deadline = request.POST['deadline']
+        item = ListItem(name=name,explanation=explanation,deadline=deadline,status=False,tList=List.objects.filter(pk=list_id).first())
+        item.save()
+        messages.add_message(request,messages.SUCCESS,'Created New Item.')
+        return redirect('/'+str(list_id))
+    else:
+        items = ListItem.objects.filter(tList=list_id)
+        title = List.objects.filter(pk=list_id).first().name
+        return render(request,'detail.html',{"items": items,"title":title,"list_id":list_id})
 
 @login_required(login_url="login") 
 def deleteList(request,list_id):
-    List.objects.filter(pk=list_id).delete()
-    messages.add_message(request,messages.SUCCESS,'Deleted List.')
-    return redirect('index')
+    if request.method == 'POST':
+        List.objects.filter(pk=list_id).delete()
+        messages.add_message(request,messages.SUCCESS,'Deleted List.')
+        return redirect('index')
 
 @login_required(login_url="login") 
 def deleteItem(request,item_id):

@@ -4,6 +4,17 @@
 <div class="container" id="mainPage">
     <h3>{{title}}</h3>
     <br>
+    <form action="{% url 'detail' list_id %}" method="POST">
+        {% csrf_token %}
+            <textarea class="form-control" name="explanation" placeholder="Item Explanation." rows="2" required></textarea>
+            Deadline: <input type="date" name="deadline" required>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="name" placeholder="Item Name" required>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="submit">Add</button>
+                </div>
+              </div>                 
+    </form>
     {% if items %}
     <table class="table">
         <thead class="thead-light">
@@ -41,6 +52,7 @@
             </tr>
             {% endfor %}
             {% else %}
+            <br>
             <p>No List Item</p>
             {% endif %}
         </tbody>
