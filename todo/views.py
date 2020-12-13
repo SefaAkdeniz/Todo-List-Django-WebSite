@@ -24,6 +24,6 @@ def detail(request,list_id):
     return render(request,'detail.html',{"items": items,"title":title})
 
 @login_required(login_url="login") 
-def addList(request,list_id):
+def deleteList(request,list_id):
     List.objects.filter(pk=list_id).delete()
     return redirect('index')

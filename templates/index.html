@@ -11,7 +11,7 @@
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="New list name" name="listName" required>
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Add</button>
+            <button class="btn btn-outline-secondary" type="submit">Add</button>
           </div>
         </div>
     </form>
@@ -19,7 +19,7 @@
     {% if lists %} {% for list in lists %}
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <a href="{% url 'detail' list.id %}">{{list.name}}</a>
-      <form action="{% url 'addList' list.id %}" method="POST">
+      <form action="{% url 'deleteList' list.id %}" method="POST">
         {% csrf_token %}
       
         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
