@@ -21,9 +21,18 @@ def index(request):
 def detail(request,list_id):
     items = ListItem.objects.filter(tList=list_id)
     title = List.objects.filter(pk=list_id).first().name
-    return render(request,'detail.html',{"items": items,"title":title})
+    return render(request,'detail.html',{"items": items,"title":title,"list_id":list_id})
 
 @login_required(login_url="login") 
 def deleteList(request,list_id):
     List.objects.filter(pk=list_id).delete()
+    messages.add_message(request,messages.SUCCESS,'Deleted List.')
     return redirect('index')
+
+@login_required(login_url="login") 
+def deleteItem(request,item_id):
+    if request.method == 'POST': 
+        listId = request.POST['listId']
+        ListItem.objects.filter(pk=item_id).delete()
+        messages.add_message(request,messages.SUCCESS,'Deleted Item.')
+        return redirect('/'+str(listId))
