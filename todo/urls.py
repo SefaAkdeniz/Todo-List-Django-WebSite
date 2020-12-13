@@ -6,4 +6,5 @@ urlpatterns = [
     path('<int:list_id>', views.detail, name= 'detail'),
     path('deleteList/<int:list_id>', views.deleteList, name= 'deleteList'),
     path('deleteItem/<int:item_id>', views.deleteItem, name= 'deleteItem'),
+    path('changeStatus/<int:item_id>', views.changeStatus, name= 'changeStatus'),
 ]

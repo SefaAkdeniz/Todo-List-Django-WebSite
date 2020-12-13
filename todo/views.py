@@ -36,3 +36,14 @@ def deleteItem(request,item_id):
         ListItem.objects.filter(pk=item_id).delete()
         messages.add_message(request,messages.SUCCESS,'Deleted Item.')
         return redirect('/'+str(listId))
+
+@login_required(login_url="login") 
+def changeStatus(request,item_id):
+    try:
+        if request.method == 'POST': 
+            listId = request.POST['listId']
+            ListItem.objects.filter(pk=item_id).update(status=True)
+            messages.add_message(request,messages.SUCCESS,'Change Status.')
+            return redirect('/'+str(listId))
+    except:
+        return('index')

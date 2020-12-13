@@ -26,12 +26,16 @@
                 <td>
                     {% if item.status is True %}
                     {% else %}
-                    <button type="button" class="btn btn-light btn-sm">Completed</button>
+                    <form action="{% url 'changeStatus' item.id%}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" value='{{list_id}}' name="listId"/>                
+                        <button type="submit" class="btn btn-danger btn-sm">Completed</button>
+                      </form>
                     {% endif %}
                 </td>
                 <td><form action="{% url 'deleteItem' item.id%}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" value='{{list_id}}' name="listId"/>
+                    <input type="hidden" value='{{list_id}}' name="listId"/>                
                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                   </form></td>
             </tr>
