@@ -6,14 +6,15 @@
   <br />
   <ul class="list-group">
     <li class="list-group-item d-flex justify-content-between align-items-center">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="New list name">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2">
-            Create
-          </button>
+      <form action="{% url 'index' %}" method="POST">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="New list name" name="listName" required>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Add</button>
+          </div>
         </div>
-      </div>
+    </form>
     </li>
     {% if lists %} {% for list in lists %}
     <li class="list-group-item d-flex justify-content-between align-items-center">

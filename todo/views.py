@@ -1,13 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import List,ListItem
+from django.contrib import messages
 
 # Create your views here.
 
 @login_required(login_url="login")
 def index(request):
-    lists = List.objects.filter(user=request.user)
-    return render(request,'index.html',{"lists": lists})
+    if request.method == 'POST': 
+        listName = request.POST['listName'] 
+        tlist = List(name=listName,user=request.user)
+        tlist.save()
+        messages.add_message(request,messages.SUCCESS,'Created New List.')
+        return redirect('index')
+    else:
+        lists = List.objects.filter(user=request.user)
+        return render(request,'index.html',{"lists": lists})
     
 @login_required(login_url="login") 
 def detail(request,list_id):

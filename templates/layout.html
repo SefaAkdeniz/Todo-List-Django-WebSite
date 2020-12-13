@@ -26,7 +26,6 @@
             logout</a>
           <form action="{% url 'logout' %}" method="POST" id="logout">
             {% csrf_token %}
-            <input type="hidden">
           </form>
         </li>
         {% else %}
